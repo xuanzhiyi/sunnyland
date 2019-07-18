@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -33,8 +33,27 @@ public class MoveController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+        
+        
         leftRightMove = Input.GetAxisRaw("Horizontal");
-
+        
+        if(Input.touchCount == 1) {
+            var touch = Input.GetTouch(0);
+            if(touch.position.x < Screen.width/2){
+                leftRightMove = -1;
+            }
+            else if (touch.position.x > Screen.width/2){
+                leftRightMove = 1;
+            }
+            
+            if (touch.position.y > Screen.height/2){
+                jump = true;
+                animator.SetBool("Jump", jump);
+            }
+        }
+        
+        
         animator.SetFloat("Speed", Mathf.Abs(leftRightMove));
 
 
